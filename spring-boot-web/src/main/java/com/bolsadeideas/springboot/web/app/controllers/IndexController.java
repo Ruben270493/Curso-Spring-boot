@@ -1,6 +1,7 @@
 package com.bolsadeideas.springboot.web.app.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -11,7 +12,9 @@ public class IndexController {
 	*  GetMapping: Funciona igual que el RequestMapping pero siempre utiliza el método GET.
 	*  PostMapping: Funciona igual que el GetMapping pero siempre utilizando el método POST. */
 	@GetMapping({"/index","/","/home"})
-	public String index() {
+	public String index(Model model) {
+		// Envío de parámetros a la vista (Variable ${titulo}).
+		model.addAttribute("titulo","¡Hola Spring Framework!");
 		return "index";
 	}
 	
