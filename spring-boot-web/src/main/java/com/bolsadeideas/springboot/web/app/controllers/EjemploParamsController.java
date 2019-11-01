@@ -25,8 +25,9 @@ public class EjemploParamsController {
 	
 	@GetMapping("/mix-params")
 	public String param(@RequestParam String saludo, @RequestParam Integer numero, Model model) {
+		model.addAttribute("titulo", "Recibir parámetros del Request HTTP GET - URL");
 		model.addAttribute("resultado", "El texto enviado es: '"+saludo+"' y el número es '"+numero+"'");
-		return "params/ver";
+		return "ver";
 	}
 	
 	@GetMapping("/mix-params-request")
