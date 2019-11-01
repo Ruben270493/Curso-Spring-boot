@@ -6,8 +6,8 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 	</head>
 	<body>
-		<h1 class="color-rojo">Enviar parámetros del Request HTTP GET - URL</h1>
-		<h2 class="color-azul">Decorando con estilos css recursos estáticos</h2>
+		<h1 class="color-rojo" th:text="${titulo}"></h1>
+		<h2 class="color-azul">Enviar parámetros del Request HTTP GET - URL</h2>
 		<ul>
 			<li>
 				<a th:href="@{/params/string(texto='Hola Rubén')}">/params/string?texto=Hola Rubén</a>
@@ -23,8 +23,7 @@
 			</li>
 		</ul>
 		
-		<h1 class="color-rojo">Enviar parámetros de la ruta (@PathVariable)</h1>
-		<h2 class="color-azul">Decorando con estilos css recursos estáticos</h2>
+		<h2 class="color-azul">Enviar parámetros de la ruta (@PathVariable)</h2>
 		<ul>
 			<li>
 				<a th:href="@{/variables/string/}+'Hola que tal Rubén'">/variables/string/Hola que tal Rubén</a>

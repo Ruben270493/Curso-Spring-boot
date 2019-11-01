@@ -3,6 +3,7 @@ package com.bolsadeideas.springboot.web.app.controllers;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,15 @@ import com.bolsadeideas.springboot.web.app.models.Usuario;
 @Controller
 public class IndexController {
 	
+	@Value("${texto.indexcontroller.index.titulo}")
+	private String textoIndex;
+	
+	@Value("${texto.indexcontroller.perfil.titulo}")
+	private String textoPerfil;
+	
+	@Value("${texto.indexcontroller.listar.titulo}")
+	private String textoListar;
+	
 	/* Existen distintas anotaciones para crear rutas: RequestMapping, GetMapping y PostMapping.
 	*  RequestMapping: Sirve tanto para GET cómo para POST, el method se puede especificar con el parámetro "method", pero si se omite por defecto es GET.
 	*  GetMapping: Funciona igual que el RequestMapping pero siempre utiliza el método GET.
@@ -20,7 +30,7 @@ public class IndexController {
 	@GetMapping({"/index","/","/home"})
 	public String index(Model model) {
 		// Envío de parámetros a la vista (Variable ${titulo}).
-		model.addAttribute("titulo","¡Hola Spring Framework!");
+		model.addAttribute("titulo",textoIndex);
 		return "index";
 	}
 
@@ -31,13 +41,13 @@ public class IndexController {
 		usuario.setApellido("Apellido");
 		usuario.setEmail("user@email.com");
 		model.addAttribute("usuario", usuario);
-		model.addAttribute("titulo", "Perfil del usuario: "+usuario.getNombre());
+		model.addAttribute("titulo", textoPerfil+usuario.getNombre());
 		return "profile";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(Model model) {
-		model.addAttribute("titulo", "Listado de usuarios");
+		model.addAttribute("titulo",textoListar);
 		return "listar";
 	}
 	
