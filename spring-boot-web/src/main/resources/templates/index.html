@@ -1,9 +1,37 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<meta charset="UTF-8"/>
-		<title th:text="${titulo}"></title>
+		<meta charset="UTF-8">
+		<title>Enviar parámetros: Distintos metodos</title>
 	</head>
 	<body>
-		<h1 th:text="${titulo}"></h1>
+		<h1>Enviar parámetros del Request HTTP GET - URL</h1>
+		<ul>
+			<li>
+				<a th:href="@{/params/string(texto='Hola Rubén')}">/params/string?texto=Hola Rubén</a>
+			</li>
+			<li>
+				<a th:href="@{/params/string(texto='Que tal Rubén')}">/params/string?texto=Que tal Rubén</a>
+			</li>
+			<li>
+				<a th:href="@{/params/mix-params(saludo='Que tal Rubén',numero=7)}">/params/mix-params?saludo=Que tal Rubén&numero=7</a>
+			</li>
+			<li>
+				<a th:href="@{/params/mix-params-request(saludo='Que tal Rubén',numero=7)}">/params/mix-params-request?saludo=Que tal Rubén&numero=7</a>
+			</li>
+		</ul>
+		
+		<h1>Enviar parámetros de la ruta (@PathVariable)</h1>
+		<ul>
+			<li>
+				<a th:href="@{/variables/string/}+'Hola que tal Rubén'">/variables/string/Hola que tal Rubén</a>
+			</li>
+			<li>
+				<a th:href="@{/variables/string/}+'Hola que tal Andrés'">/variables/string/Hola que tal Andrés</a>
+			</li>
+			<li>
+				<a th:href="@{/variables/string/}+'Hola que tal Andrés/'+7">/variables/string/Hola que tal Andrés/7</a>
+			</li>
+		</ul>
 	</body>
 </html>

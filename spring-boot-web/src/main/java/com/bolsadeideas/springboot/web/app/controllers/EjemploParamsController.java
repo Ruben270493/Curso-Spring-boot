@@ -14,7 +14,7 @@ public class EjemploParamsController {
 	
 	@GetMapping("/")
 	public String index() {
-		return "params/index";
+		return "index";
 	}
 	
 	@GetMapping("/string")
