@@ -3,9 +3,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Enviar parámetros: Distintos metodos</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 	</head>
 	<body>
-		<h1>Enviar parámetros del Request HTTP GET - URL</h1>
+		<h1 class="color-rojo">Enviar parámetros del Request HTTP GET - URL</h1>
+		<h2 class="color-azul">Decorando con estilos css recursos estáticos</h2>
 		<ul>
 			<li>
 				<a th:href="@{/params/string(texto='Hola Rubén')}">/params/string?texto=Hola Rubén</a>
@@ -21,7 +23,8 @@
 			</li>
 		</ul>
 		
-		<h1>Enviar parámetros de la ruta (@PathVariable)</h1>
+		<h1 class="color-rojo">Enviar parámetros de la ruta (@PathVariable)</h1>
+		<h2 class="color-azul">Decorando con estilos css recursos estáticos</h2>
 		<ul>
 			<li>
 				<a th:href="@{/variables/string/}+'Hola que tal Rubén'">/variables/string/Hola que tal Rubén</a>
