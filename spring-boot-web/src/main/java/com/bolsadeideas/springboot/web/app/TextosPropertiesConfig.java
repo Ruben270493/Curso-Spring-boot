@@ -8,6 +8,4 @@ import org.springframework.context.annotation.PropertySources;
 @PropertySources({
 	@PropertySource("classpath:textos.properties")
 })
-public class TextosPropertiesConfig {
-
-}
+public class TextosPropertiesConfig {}
