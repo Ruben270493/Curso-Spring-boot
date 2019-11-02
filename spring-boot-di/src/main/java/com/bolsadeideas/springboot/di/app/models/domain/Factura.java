@@ -2,6 +2,9 @@ package com.bolsadeideas.springboot.di.app.models.domain;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +22,17 @@ public class Factura {
 	@Autowired
 	@Qualifier("itemsFacturaOficina")
 	private List<ItemFactura> items;
+	
+	@PostConstruct
+	public void inicializar() {
+		cliente.setNombre(cliente.getNombre().concat(" ").concat("Edit"));
+		descripcion = descripcion.concat(" del cliente: ").concat(cliente.getNombre());
+	}
+	
+	@PreDestroy
+	public void destruir() {
+		System.out.println("Se destruye el objeto Factura: "+descripcion);
+	}
 	
 	public String getDescripcion() {
 		return descripcion;
