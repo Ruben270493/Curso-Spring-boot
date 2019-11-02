@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Factura {
 
-	@Value("${factura.descripcion")
+	@Value("${factura.descripcion}")
 	private String descripcion;
 	
 	@Autowired
