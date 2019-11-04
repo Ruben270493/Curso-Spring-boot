@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,7 +39,6 @@ public class Cliente implements Serializable {
 	@NotEmpty
 	private String email;
 	
-	@NotNull
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -46,6 +46,11 @@ public class Cliente implements Serializable {
 
 	@PrePersist
 	public void prePersist() {
+		createAt = new Date();
+	}
+	
+	@PreUpdate
+	public void preUpdate() {
 		createAt = new Date();
 	}
 	
