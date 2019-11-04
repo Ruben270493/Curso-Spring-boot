@@ -62,4 +62,11 @@ public class ClienteController {
 		status.setComplete();
 		return "redirect:listar";
 	}
+	
+	@GetMapping(value = "/eliminar/{id}")
+	public String eliminar(@PathVariable(value = "id") Long id) {
+		if (id > 0)
+			clienteDao.delete(id);
+		return "redirect:/listar";
+	}
 }
