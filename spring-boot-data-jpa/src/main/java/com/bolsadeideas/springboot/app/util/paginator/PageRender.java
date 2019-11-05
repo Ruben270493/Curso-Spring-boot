@@ -6,73 +6,80 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 public class PageRender<T> {
-	
+
 	private String url;
 	private Page<T> page;
-	private int totalPages;
-	private int numElementsPerPage;
-	private int currentPage;
-	private List<PageItem> pages;
-	
+
+	private int totalPaginas;
+
+	private int numElementosPorPagina;
+
+	private int paginaActual;
+
+	private List<PageItem> paginas;
+
 	public PageRender(String url, Page<T> page) {
 		this.url = url;
 		this.page = page;
-		this.pages = new ArrayList<PageItem>();
-		numElementsPerPage = page.getSize();
-		totalPages = page.getTotalPages();
-		currentPage = page.getNumber() + 1;
-		int from, to;
-		
-		if (totalPages <= numElementsPerPage) {
-			from = 1;
-			to = totalPages;
+		this.paginas = new ArrayList<PageItem>();
+
+		numElementosPorPagina = 6;
+		totalPaginas = page.getTotalPages();
+		paginaActual = page.getNumber() + 1;
+
+		int desde, hasta;
+		if (totalPaginas <= numElementosPorPagina) {
+			desde = 1;
+			hasta = totalPaginas;
 		} else {
-			if (currentPage <= numElementsPerPage/2) {
-				from = 1;
-				to = numElementsPerPage;
-			} else if (currentPage >= totalPages - numElementsPerPage/2) {
-				from = totalPages - numElementsPerPage + 1;
-				to = numElementsPerPage;
+			if (paginaActual <= numElementosPorPagina / 2) {
+				desde = 1;
+				hasta = numElementosPorPagina;
+			} else if (paginaActual >= totalPaginas - numElementosPorPagina / 2) {
+				desde = totalPaginas - numElementosPorPagina + 1;
+				hasta = numElementosPorPagina;
 			} else {
-				from = currentPage - numElementsPerPage/2;
-				to = numElementsPerPage;
+				desde = paginaActual - numElementosPorPagina / 2;
+				hasta = numElementosPorPagina;
 			}
 		}
-		
-		for (int i = 0 ; i < to ; i++) {
-			pages.add(new PageItem(from + i, currentPage == from+i));
+
+		for (int i = 0; i < hasta; i++) {
+			paginas.add(new PageItem(desde + i, paginaActual == desde + i));
 		}
+
 	}
 
 	public String getUrl() {
 		return url;
 	}
 
-	public int getTotalPages() {
-		return totalPages;
+	public int getTotalPaginas() {
+		return totalPaginas;
 	}
 
-	public int getCurrentPage() {
-		return currentPage;
+	public int getPaginaActual() {
+		return paginaActual;
 	}
 
-	public List<PageItem> getPages() {
-		return pages;
+	public List<PageItem> getPaginas() {
+		return paginas;
 	}
-	
+
 	public boolean isFirst() {
 		return page.isFirst();
 	}
-	
+
 	public boolean isLast() {
 		return page.isLast();
 	}
-	
+
 	public boolean isHasNext() {
 		return page.hasNext();
 	}
-	
+
 	public boolean isHasPrevious() {
 		return page.hasPrevious();
 	}
+
 }

@@ -3,6 +3,7 @@ package com.bolsadeideas.springboot.app.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.service.IClienteService;
+import com.bolsadeideas.springboot.app.util.paginator.PageRender;
 
 @Controller
 @SessionAttributes("cliente")
@@ -29,8 +31,13 @@ public class ClienteController {
 	@GetMapping(value = "/listar")
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 		Pageable pageRequest = PageRequest.of(page,4);
+		
+		Page<Cliente> clientes = clienteService.findAll(pageRequest);
+		PageRender<Cliente> pageRender = new PageRender<>("/listar",clientes);
+		
 		model.addAttribute("titulo", "Listado de clientes");
-		model.addAttribute("clientes", clienteService.findAll(pageRequest));
+		model.addAttribute("clientes", clientes);
+		model.addAttribute("page", pageRender);
 		return "listar";
 	}
 	

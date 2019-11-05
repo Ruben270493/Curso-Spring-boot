@@ -2,28 +2,20 @@ package com.bolsadeideas.springboot.app.util.paginator;
 
 public class PageItem {
 
-	private int number;
-	private boolean isCurrentPage;
-	
-	public PageItem(int number, boolean isCurrentPage) {
-		this.number = number;
-		this.isCurrentPage = isCurrentPage;
+	private int numero;
+	private boolean actual;
+
+	public PageItem(int numero, boolean actual) {
+		this.numero = numero;
+		this.actual = actual;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getNumero() {
+		return numero;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public boolean isActual() {
+		return actual;
 	}
 
-	public boolean isCurrentPage() {
-		return isCurrentPage;
-	}
-
-	public void setCurrentPage(boolean isCurrentPage) {
-		this.isCurrentPage = isCurrentPage;
-	}
-	
 }
