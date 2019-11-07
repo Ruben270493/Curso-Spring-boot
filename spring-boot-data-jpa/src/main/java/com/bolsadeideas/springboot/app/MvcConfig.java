@@ -13,12 +13,12 @@ public class MvcConfig implements WebMvcConfigurer {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
-	@Override
+	/*@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 		String resourcePath = Paths.get("uploads").toAbsolutePath().toUri().toString();
 		log.info(resourcePath);
 		registry.addResourceHandler("/uploads/**").addResourceLocations(resourcePath);
-	}
+	}*/
 	
 }
