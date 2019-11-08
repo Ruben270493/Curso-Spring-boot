@@ -18,3 +18,12 @@ INSERT INTO clientes (id, nombre, apellido, email, create_at, foto) VALUES (17, 
 INSERT INTO clientes (id, nombre, apellido, email, create_at, foto) VALUES (18, 'Persona16', 'Fernandez', 'persona16@bolsadeideas.com', '2019-11-03','');
 INSERT INTO clientes (id, nombre, apellido, email, create_at, foto) VALUES (19, 'Persona17', 'Fernandez', 'persona17@bolsadeideas.com', '2019-11-03','');
 INSERT INTO clientes (id, nombre, apellido, email, create_at, foto) VALUES (20, 'Persona18', 'Fernandez', 'persona18@bolsadeideas.com', '2019-11-03','');
+
+/*Tabla productos*/
+INSERT INTO productos (nombre, precio, create_at) VALUES('Panasonic Pantalla LCD', 259990, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES('Sony Camara digital DSC-W320B', 123490, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES('Apple iPod shuffle', 1499990, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES('Sony Notebook Z110', 37990, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES('Hewlett Packard Multifuncional F2280', 69990, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES('Bianchi Bicicleta Aro 26', 69990, NOW());
+INSERT INTO productos (nombre, precio, create_at) VALUES('Mica Comoda 5 Cajones', 299990, NOW());
