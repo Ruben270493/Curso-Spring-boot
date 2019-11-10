@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	$('#buscar_producto').autocomplete({
 		source: function(request, response) {
-			$ajax({
+			$.ajax({
 				url: "/factura/cargar-productos/" + request.term,
 				dataType: "json",
 				data: {
