@@ -28,9 +28,16 @@ $(document).ready(function() {
 			linea = linea.replace(/{PRECIO}/g, ui.item.precio);
 			
 			$("#cargarItemsProductos tbody").append(linea);
+			itemsHelper.calcularImporte(ui.item.value, ui.item.precio, 1);
 			
 			return false;
 		}
 	});
+	
+	var itemsHelper = {
+			calcularImporte: function(id, precio, cantidad) {
+				$("#total_importe_" + id).html(parseInt(precio) * parseInt(cantidad));
+			} 
+	}
 	
 });

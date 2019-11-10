@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<body>
+		<script type="text/javascript" th:fragment="javascript">
+			var itemsHelper = {
+					calcularImporte: function(id, precio, cantidad) {
+						$("#total_importe_" + id).html(parseInt(precio) * parseInt(cantidad));
+					} 
+			}
+		</script>
+	</body>
+</html>
