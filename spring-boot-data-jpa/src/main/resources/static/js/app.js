@@ -20,7 +20,15 @@ $(document).ready(function() {
 			});
 		},
 		select: function(event, ui) {
-			$("#buscar_producto").val(ui.item.label);
+			//$("#buscar_producto").val(ui.item.label);
+			var linea = $("#plantillaItemsFactura").html();
+			
+			linea = linea.replace(/{ID}/g, ui.item.value);
+			linea = linea.replace(/{NOMBRE}/g, ui.item.label);
+			linea = linea.replace(/{PRECIO}/g, ui.item.precio);
+			
+			$("#cargarItemsProductos tbody").append(linea);
+			
 			return false;
 		}
 	});
