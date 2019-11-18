@@ -2,11 +2,14 @@ package com.bolsadeideas.springboot.app.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,8 +60,19 @@ public class FacturaController {
 	}
 	
 	@PostMapping("/form")
-	public String guardar(Factura factura, @RequestParam(name = "item_id[]", required = false) Long[] itemId, 
-			@RequestParam(name = "cantidad[]", required = false) Integer[] cantidad, RedirectAttributes flash, SessionStatus status) {
+	public String guardar(@Valid Factura factura, BindingResult result, @RequestParam(name = "item_id[]", required = false) Long[] itemId, 
+			@RequestParam(name = "cantidad[]", required = false) Integer[] cantidad, RedirectAttributes flash, SessionStatus status, Model model) {
+		
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Crear factura");
+			return "factura/form";
+		}
+		
+		if (itemId == null || itemId.length == 0) {
+			model.addAttribute("titulo", "Crear factura");
+			model.addAttribute("error", "Error: ¡La factura NO puede no tener líneas!");
+			return "factura/form";
+		}
 		
 		for (int i = 0; i < itemId.length; i++) {
 			
