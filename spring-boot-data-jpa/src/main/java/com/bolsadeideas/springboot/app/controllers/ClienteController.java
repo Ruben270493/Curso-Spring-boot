@@ -68,7 +68,7 @@ public class ClienteController {
 		return "ver";
 	}
 	
-	@GetMapping(value = "/listar")
+	@GetMapping(value = {"/listar","/"})
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 		Pageable pageRequest = PageRequest.of(page,4);
 		
