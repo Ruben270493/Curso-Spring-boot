@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
 	@GetMapping("/login")
-	public String Login(@RequestParam(value = "error", required = false) String error, Model model, Principal principal) {
+	public String Login(@RequestParam(value = "logout", required = false) String logout, @RequestParam(value = "error", required = false) String error, Model model, Principal principal) {
 		
 		if (principal != null)
 			return "redirect:/";
 		
-		if (error != null)
+		if (null != error)
 			model.addAttribute("error", "El usuario o la contraseña es incorrecta.");
+		
+		if (null != logout)
+			model.addAttribute("info", "La sesión se ha cerrado correctamente");
 		
 		return "login";
 		

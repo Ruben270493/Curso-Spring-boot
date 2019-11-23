@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head th:fragment="head">
 		<meta charset="UTF-8"/>
 		<title th:text="'Spring Boot: MVC + Thymeleaf + Data JPA - '+${titulo}"></title>
@@ -22,6 +22,19 @@
 			        <a class="nav-link" th:href="@{/listar}">Clientes</a>
 			      </li>
 			    </ul>
+			    <ul class="navbar-nav ml-auto">
+			    	<li sec:authorize="!isAuthenticated()"><a class="btn btn-outline-primary" th:href="@{/login}">Iniciar sesión</a></li>
+			    	<li sec:authorize="isAuthenticated()" class="dropdown show">
+					  <a class="btn btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span sec:authentication="name"></span>
+					  </a>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					  	<form th:action="@{/logout}" method="post" id="logoutForm">
+					  		<button onclick="document.getElementById('logoutForm').submit();" type="submit" class="dropdown-item">LogOut</button>
+					  	</form>
+					  </div>
+					</li>
+			    </ul>
 			  </div>
 			</nav>
 			<div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
@@ -31,6 +44,9 @@
 		</header>
 		<footer th:fragment="footer" class="container">
 			<hr/>
+			<p sec:authorize="isAuthenticated()">
+				Usuario logueado: <span sec:authentication="name"></span> | Roles: <span sec:authentication="principal.authorities"></span>
+			</p>
 			<p>Powered by <a href="https://projects.spring.io/spring-boot/">Spring boot</a> y <a href="http://www.thymeleaf.org">Thymeleaf</a>.</p>
 			<p>Este proyecto fué desarrollado en IDE Eclipse + Spring Plugins (STS Spring Tool). <br/> &copy; Company 2019, Inc. Todos los derechos reservados. Términos de uso y privacidad
 			<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
