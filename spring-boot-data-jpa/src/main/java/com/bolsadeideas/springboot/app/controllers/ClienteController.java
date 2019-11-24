@@ -2,7 +2,6 @@ package com.bolsadeideas.springboot.app.controllers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -13,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,21 +21,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
-import com.bolsadeideas.springboot.app.models.entity.Producto;
 import com.bolsadeideas.springboot.app.models.service.IClienteService;
 import com.bolsadeideas.springboot.app.models.service.IUploadFileService;
 import com.bolsadeideas.springboot.app.util.paginator.PageRender;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 @Controller
 @SessionAttributes("cliente")
 public class ClienteController {
+	
+	protected final Log logger = LogFactory.getLog(this.getClass());
 	
 	@Autowired
 	private IClienteService clienteService;
@@ -69,7 +73,16 @@ public class ClienteController {
 	}
 	
 	@GetMapping(value = {"/listar","/"})
-	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model, Authentication authentication) {
+		
+		if (null != authentication)
+			logger.info("Tu username es: " + authentication.getName());
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		if (null != authentication)
+			logger.info("(Utilizando de forma estatica SecurityContextHolder) Tu username es: " + auth.getName());
+		
 		Pageable pageRequest = PageRequest.of(page,4);
 		
 		Page<Cliente> clientes = clienteService.findAll(pageRequest);
@@ -78,7 +91,9 @@ public class ClienteController {
 		model.addAttribute("titulo", "Listado de clientes");
 		model.addAttribute("clientes", clientes);
 		model.addAttribute("page", pageRender);
+		
 		return "listar";
+		
 	}
 	
 	@GetMapping(value = "/form")
