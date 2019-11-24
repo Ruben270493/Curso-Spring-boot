@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
 
-import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -51,6 +52,7 @@ public class ClienteController {
 	@Autowired
 	private IUploadFileService uploadFileService;
 	
+	@Secured("ROLE_USER")
 	@GetMapping(value="/uploads/{filename:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
 		Resource recurso = null;
@@ -62,6 +64,7 @@ public class ClienteController {
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachemente; filename=\""+recurso.getFilename()+"\"").body(recurso);
 	}
 	
+	@Secured("ROLE_USER")
 	@GetMapping(value = "/ver/{id}")
 	public String ver(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
 		Cliente cliente = clienteService.fetchByIdWithFacturas(id);
@@ -119,6 +122,7 @@ public class ClienteController {
 		
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/form")
 	public String crear(Model model) {
 		Cliente cliente = new Cliente();
@@ -127,6 +131,7 @@ public class ClienteController {
 		return "form";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/form/{id}")
 	public String editar(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
 		Cliente cliente = null;
@@ -178,6 +183,7 @@ public class ClienteController {
 		return "redirect:listar";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/eliminar/{id}")
 	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 		if (id > 0) {
