@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.Collection;
 
 import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,6 +21,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -76,7 +78,7 @@ public class ClienteController {
 	}
 	
 	@GetMapping(value = {"/listar","/"})
-	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model, Authentication authentication) {
+	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model, Authentication authentication, HttpServletRequest request) {
 		
 		if (null != authentication)
 			logger.info("Tu username es: " + authentication.getName());
@@ -90,6 +92,19 @@ public class ClienteController {
 			logger.info("Hola "+ auth.getName() + ", tienes acceso.");
 		else
 			logger.info("Hola "+ auth.getName() + ", NO tienes acceso.");
+		
+		SecurityContextHolderAwareRequestWrapper securityContext = new SecurityContextHolderAwareRequestWrapper(request, "ROLE_");
+		
+		if (securityContext.isUserInRole("ADMIN"))
+			logger.info("Hola "+ auth.getName() + ", tienes acceso (Con SecurityContextHolderAwareRequestWrapper).");
+		else
+			logger.info("Hola "+ auth.getName() + ", NO tienes acceso. (Con SecurityContextHolderAwareRequestWrapper)");
+		
+		if (request.isUserInRole("ROLE_ADMIN"))
+			logger.info("Hola "+ auth.getName() + ", tienes acceso (Con Request).");
+		else
+			logger.info("Hola "+ auth.getName() + ", NO tienes acceso. (Con Request)");
+		
 		
 		Pageable pageRequest = PageRequest.of(page,4);
 		
