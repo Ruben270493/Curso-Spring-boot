@@ -8,16 +8,16 @@
 				<div class="card-header" th:text="${titulo}"></div>
 				<div class="card-body">
 					<h4 class="card-title">
-						<a th:href="@{'/ver/'+ ${factura.cliente.id}}" class="btn btn-light btn-xs">&laquo; volver</a>
+						<a th:href="@{'/ver/'+ ${factura.cliente.id}}" class="btn btn-light btn-xs" th:text="'&laquo; '+#{text.invoice.return}"></a>
 					</h4>
 					<ul class="list-group my-2">
-						<li class="list-group-item list-group-item-primary" th:text="'Datos del cliente'"></li>
+						<li class="list-group-item list-group-item-primary" th:text="#{text.cliente.detail}"></li>
 						<li class="list-group-item" th:text="${factura.cliente}"></li>
 						<li class="list-group-item" th:text="${factura.cliente.email}"></li>
 					</ul>
 					
 					<ul class="list-group my-2">
-						<li class="list-group-item list-group-item-success" th:text="'Datos de la factura'"></li>
+						<li class="list-group-item list-group-item-success" th:text="#{text.invoice.detail}"></li>
 						<li class="list-group-item" th:text="'Folio: ' + ${factura.id}"></li>
 						<li class="list-group-item" th:text="'Descripcion: ' + ${factura.descripcion}"></li>
 						<li class="list-group-item" th:text="'Fecha: ' + ${factura.createAt}"></li>
@@ -25,10 +25,10 @@
 					<table th:if="${! #lists.isEmpty(factura.items)}" class="table table-striped table-hover table-bordered my-3">
 						<thead>
 							<tr>
-								<th>Producto</th>
-								<th>Precio</th>
-								<th>Cantidad</th>
-								<th>Total</th>
+								<th th:text="#{text.invoice.detail}"></th>
+								<th th:text="#{text.invoice.price}"></th>
+								<th th:text="#{text.invoice.quantity}"></th>
+								<th th:text="#{text.invoice.total}"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -40,12 +40,12 @@
 							</tr>
 						</tbody>
 					</table>
-					<h5 class="float-right">Total: <span th:text=${factura.total} class="badge badge-secondary"></span></h5>
+					<h5 class="float-right"><span th:text="#{text.invoice.total}"></span>: <span th:text=${factura.total} class="badge badge-secondary"></span></h5>
 					<div class="card border-info mb-4" style="max-with: 20rem;">
-						<div class="card-header">Observaciones</div>
+						<div class="card-header" th:text="#{text.invoice.observations}"></div>
 						<div class="card-body">
 							<p th:text="${factura.observacion}" class="card-text" th:if="${! #strings.isEmpty(factura.observacion)}"></p>
-							<h4 class="card-title" th:if="${#strings.isEmpty(factura.observacion)}" th:text="'No tiene observaciones'"></h4>
+							<h4 class="card-title" th:if="${#strings.isEmpty(factura.observacion)}" th:text="#{text.invoice.noobservations}"></h4>
 						</div>
 					</div>
 				</div>
