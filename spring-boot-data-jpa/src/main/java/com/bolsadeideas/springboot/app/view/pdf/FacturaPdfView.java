@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.app.view.pdf;
 
+import java.awt.Color;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,15 +28,25 @@ public class FacturaPdfView extends AbstractPdfView {
 		Factura factura = (Factura) model.get("factura");
 		PdfPTable tabla = new PdfPTable(1);
 		
+		PdfPCell cell = new PdfPCell(new Phrase("Datos del cliente"));
+		
+		cell.setBackgroundColor(new Color(184, 218, 255));
+		cell.setPadding(8f);
+		
 		tabla.setSpacingAfter(20);
-		tabla.addCell("Datos del cliente");
+		tabla.addCell(cell);
 		tabla.addCell(factura.getCliente().getNombre() + " " + factura.getCliente().getApellido());
 		tabla.addCell(factura.getCliente().getEmail());
 		
 		PdfPTable tabla2 = new PdfPTable(1);
 		
+		cell = new PdfPCell(new Phrase("Datos de la factura"));
+		
+		cell.setBackgroundColor(new Color(195, 230, 203));
+		cell.setPadding(8f);
+		
 		tabla2.setSpacingAfter(20);
-		tabla2.addCell("Datos de la factura");
+		tabla2.addCell(cell);
 		tabla2.addCell("Folio: " + factura.getId());
 		tabla2.addCell("Descripcion: " + factura.getDescripcion());
 		tabla.addCell("Fecha: " + factura.getCreateAt());
@@ -45,6 +56,7 @@ public class FacturaPdfView extends AbstractPdfView {
 		
 		PdfPTable tabla3 = new PdfPTable(4);
 		
+		tabla3.setWidths(new float [] {3.5f, 1, 1, 1});
 		tabla3.addCell("Producto");
 		tabla3.addCell("Precio");
 		tabla3.addCell("Cantidad");
@@ -54,12 +66,16 @@ public class FacturaPdfView extends AbstractPdfView {
 			
 			tabla3.addCell(item.getProducto().getNombre());
 			tabla3.addCell(item.getProducto().getPrecio().toString());
-			tabla3.addCell(item.getCantidad().toString());
+			
+			cell = new PdfPCell(new Phrase(item.getCantidad().toString()));
+			cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+			
+			tabla3.addCell(cell);
 			tabla3.addCell(item.calcularImporte().toString());
 			
 		}
 		
-		PdfPCell cell = new PdfPCell(new Phrase("Total: "));
+		cell = new PdfPCell(new Phrase("Total: "));
 		cell.setColspan(3);
 		cell.setHorizontalAlignment(PdfCell.ALIGN_RIGHT);
 		tabla3.addCell(cell);
