@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,15 +19,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.bolsadeideas.springboot.app.auth.service.JWTService;
+import com.bolsadeideas.springboot.app.auth.service.JWTServiceImpl;
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.jsonwebtoken.SignatureAlgorithm;
-
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	
-	public static final SecretKeySpec SECRET_KEY = new SecretKeySpec("algunaLlaveSecreta.masfuerte.12345".getBytes(), SignatureAlgorithm.HS256.getJcaName());
 	private AuthenticationManager authenticationManager;
 	private JWTService jwtService;
 	
@@ -91,7 +88,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		String token = jwtService.create(authResult);
         
-        response.addHeader("Authorization", "Bearer " + token);
+        response.addHeader(JWTServiceImpl.HEADER_STRING, JWTServiceImpl.TOKEN_PREFIX + token);
         
         Map<String, Object> body = new HashMap<String, Object>();
         body.put("token", token);
