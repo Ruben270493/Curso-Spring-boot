@@ -7,7 +7,7 @@
 			<div class="card border-primary text-center">
 				<div class="card-header" th:text="#{text.menu.singin}"></div>
 				<div class="card-body">
-					<form th:action="@{/api/login}" method="post">
+					<form th:action="@{/login}" method="post">
 						<div class="form-group col-sm-6">
 							<input type="text" name="username" id="username" class="form-control" th:placeholder="#{text.login.username}" autofocus required/>
 						</div>
