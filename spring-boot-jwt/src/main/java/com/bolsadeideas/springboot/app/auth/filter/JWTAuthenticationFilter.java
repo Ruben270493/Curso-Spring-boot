@@ -32,7 +32,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	
-	public static final SecretKeySpec SECRET_KEY = new SecretKeySpec("algunaLlaveSecreta".getBytes(), SignatureAlgorithm.HS256.getJcaName());
+	public static final SecretKeySpec SECRET_KEY = new SecretKeySpec("algunaLlaveSecreta.masfuerte.12345".getBytes(), SignatureAlgorithm.HS256.getJcaName());
 	private AuthenticationManager authenticationManager;
 	
 	public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
