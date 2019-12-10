@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:replace="layout/layout :: head"></head>
+	<body>
+	<header th:replace="layout/layout :: header"></header>
+		<div class="container py-4">
+			<div class="card">
+				<div class="card-header" th:text="${titulo}"></div>
+				<div class="card-body">
+					<h4 class="card-title">
+						<a th:href="@{'/ver/'+ ${factura.cliente.id}}" class="btn btn-light btn-xs" th:text="'&laquo; '+#{text.invoice.return}"></a>
+						<a class="btn btn-danger btn-xs float-right mx-2" th:href="@{'/factura/ver/' + ${factura.id}(format=pdf)}">PDF</a>
+						<a class="btn btn-success btn-xs float-right" th:href="@{'/factura/ver/' + ${factura.id}(format=xlsx)}">XLS</a>
+					</h4>
+					<ul class="list-group my-2">
+						<li class="list-group-item list-group-item-primary" th:text="#{text.cliente.detail}"></li>
+						<li class="list-group-item" th:text="${factura.cliente}"></li>
+						<li class="list-group-item" th:text="${factura.cliente.email}"></li>
+					</ul>
+					
+					<ul class="list-group my-2">
+						<li class="list-group-item list-group-item-success" th:text="#{text.invoice.detail}"></li>
+						<li class="list-group-item" th:text="'Folio: ' + ${factura.id}"></li>
+						<li class="list-group-item" th:text="'Descripcion: ' + ${factura.descripcion}"></li>
+						<li class="list-group-item" th:text="'Fecha: ' + ${factura.createAt}"></li>
+					</ul>
+					<table th:if="${! #lists.isEmpty(factura.items)}" class="table table-striped table-hover table-bordered my-3">
+						<thead>
+							<tr>
+								<th th:text="#{text.invoice.detail}"></th>
+								<th th:text="#{text.invoice.price}"></th>
+								<th th:text="#{text.invoice.quantity}"></th>
+								<th th:text="#{text.invoice.total}"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="linea: ${factura.items}">
+								<td th:text="${linea.producto.nombre}"></td>
+								<td th:text="${linea.producto.precio}"></td>
+								<td th:text="${linea.cantidad}"></td>
+								<td th:text="${linea.calcularImporte()}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<h5 class="float-right"><span th:text="#{text.invoice.total}"></span>: <span th:text=${factura.total} class="badge badge-secondary"></span></h5>
+					<div class="card border-info mb-4" style="max-with: 20rem;">
+						<div class="card-header" th:text="#{text.invoice.observations}"></div>
+						<div class="card-body">
+							<p th:text="${factura.observacion}" class="card-text" th:if="${! #strings.isEmpty(factura.observacion)}"></p>
+							<h4 class="card-title" th:if="${#strings.isEmpty(factura.observacion)}" th:text="#{text.invoice.noobservations}"></h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer th:replace="layout/layout :: footer"></footer>
+		<script type="text/javascript" th:replace="factura/js/autocomplete-productos.html :: javascript"></script>
+	</body>
+</html>
