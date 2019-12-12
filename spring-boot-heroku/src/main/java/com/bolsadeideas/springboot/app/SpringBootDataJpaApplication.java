@@ -11,8 +11,6 @@ import com.bolsadeideas.springboot.app.models.service.IUploadFileService;
 @SpringBootApplication
 public class SpringBootDataJpaApplication implements CommandLineRunner {
 
-	// Heroku
-	
 	@Autowired
 	IUploadFileService uploadFileService;
 	
