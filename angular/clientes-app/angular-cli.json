@@ -18,9 +18,14 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "assets/css/bootstrap.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/js/jquery-3.4.1.slim.min.js",
+        "assets/js/popper.min.js",
+        "assets/js/bootstrap.min.js",
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
