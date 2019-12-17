@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Cliente } from './cliente';
 import { CLIENTES } from './clientes.json';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { Observable, of, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
