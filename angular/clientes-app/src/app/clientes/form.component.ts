@@ -20,7 +20,7 @@ export class FormComponent implements OnInit {
     this.cargarCliente();
   }
 
-  cargarCliente():void {
+  public cargarCliente():void {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id']
       if (id) {
@@ -38,6 +38,13 @@ export class FormComponent implements OnInit {
         swal.fire('Nuevo cliente', `¡Cliente ${cliente.nombre} creado correctamente!`, 'success')
       }
     );
+  }
+
+  public update():void {
+    this.clienteService.update(this.cliente).subscribe(cliente => {
+      this.router.navigate(['/clientes'])
+      swal.fire('Cliente actualizado', `El cliente ${cliente.nombre} se ha actualizado correctamente`, 'success')
+    });
   }
 
 }
