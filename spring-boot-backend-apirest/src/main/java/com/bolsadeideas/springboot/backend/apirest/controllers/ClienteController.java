@@ -67,7 +67,7 @@ public class ClienteController {
 		try {
 			nuevoCliente = clienteService.save(cliente);
 		} catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar el insert en la base de datos.");
+			response.put("mensaje", "Error al crear el cliente.");
 			response.put("error", e.getMessage() + e.getMostSpecificCause().getMessage());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
