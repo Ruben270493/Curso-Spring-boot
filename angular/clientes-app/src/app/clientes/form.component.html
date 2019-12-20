@@ -1,30 +1,51 @@
 <div class="card bg-dark text-white">
   <div class="card-header">{{ title }}</div>
   <div class="card-body">
-    <form>
+    <form #clienteForm="ngForm">
       <div class="form-group row">
         <label class="col-form-label col-sm-2">Nombre</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre">
+          <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" required minlength="4" #nombre="ngModel">
+          <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            <div *ngIf="nombre.errors.required">
+              El campo nombre es obligatorio.
+            </div>
+            <div *ngIf="nombre.errors.minlength">
+              El campo nombre debe tener al menos 4 caracteres.
+            </div>
+          </div>
         </div>
       </div>
       <div class="form-group row">
         <label class="col-form-label col-sm-2">Apellido</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="cliente.apellido" name="apellido">
+          <input type="text" class="form-control" [(ngModel)]="cliente.apellido" name="apellido" required #apellido="ngModel">
+          <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+            <div *ngIf="apellido.errors.required">
+              El campo apellido es obligatorio.
+            </div>
+          </div>
         </div>
       </div>
       <div class="form-group row">
         <label class="col-form-label col-sm-2">E-Mail</label>
         <div class="col-sm-6">
-          <input type="email" class="form-control" [(ngModel)]="cliente.email" name="email">
+          <input type="email" class="form-control" [(ngModel)]="cliente.email" name="email" required email #email="ngModel">
+          <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.errors.required">
+              El campo email es obligatorio.
+            </div>
+            <div *ngIf="email.errors.email">
+              El campo email debe tener el formato aaaa@aaaa.
+            </div>
+          </div>
         </div>
       </div>
       <div class="form-group row">
         <div class="col-sm-6">
-          <button class="btn btn-primary" role="button" (click) = "create()" *ngIf = "!cliente.id else elseBlock">Crear</button>
+          <button class="btn btn-primary" role="button" (click) = "create()" *ngIf = "!cliente.id else elseBlock" [disabled]="!clienteForm.form.valid">Crear</button>
           <ng-template #elseBlock>
-            <button class="btn btn-primary" role="button" (click) = "update()">Editar</button>
+            <button class="btn btn-primary" role="button" (click) = "update()" [disabled]="!clienteForm.form.valid">Editar</button>
           </ng-template>
         </div>
       </div>
