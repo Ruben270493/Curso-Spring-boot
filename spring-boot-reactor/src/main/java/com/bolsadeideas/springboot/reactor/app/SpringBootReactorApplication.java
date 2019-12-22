@@ -22,8 +22,9 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Flux<Usuario> nombres = Flux.just("Rubén Fernández", "Andrés Guzm", "Trang Bu", "Juan Villa", "Bruce Lee", "Bruce Willis")
-			.map(nombre -> new Usuario(nombre.split(" ")[0].toUpperCase(), nombre.split(" ")[1].toUpperCase()))
+		Flux<String> nombres = Flux.just("Rubén Fernández", "Andrés Guzm", "Trang Bu", "Juan Villa", "Bruce Lee", "Bruce Willis");
+		
+		Flux<Usuario> usuarios = nombres.map(nombre -> new Usuario(nombre.split(" ")[0].toUpperCase(), nombre.split(" ")[1].toUpperCase()))
 			.filter(usuario -> usuario.getNombre().toLowerCase().equals("bruce"))
 			.doOnNext(usuario -> {
 				if (null == usuario)
@@ -36,7 +37,7 @@ public class SpringBootReactorApplication implements CommandLineRunner {
 					return usuario;
 				});
 		
-		nombres.subscribe(e -> log.info(e.toString()), 
+		usuarios.subscribe(e -> log.info(e.toString()), 
 				error -> log.error(error.getMessage()),
 				new Runnable() {
 					@Override
