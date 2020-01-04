@@ -1,4 +1,4 @@
-package com.bolsadeideas.springboot.webflux.models.documents;
+package com.bolsadeideas.springboot.webflux.app.models.documents;
 
 import java.util.Date;
 
@@ -14,6 +14,13 @@ public class Producto {
 	private String nombre;
 	private Double precio;
 	private Date createAt;
+	
+	public Producto() {}
+	
+	public Producto(String nombre, Double precio) {
+		this.nombre = nombre;
+		this.precio = precio;
+	}
 	
 	public String getId() {
 		return id;
